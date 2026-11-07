@@ -1,6 +1,6 @@
-# Attention, Reframed
+# Beyond the Label
 
-A static website describing an independent research approach to ADHD: what is currently known, why attention follows interest rather than importance, why prioritizing is hard, and a staged plan to study attention, time-blindness, and executive function, aimed at better daily outcomes for people with ADHD.
+A static website for an independent research initiative that starts from adult ADHD and aims beyond it: a cognitive profile of attention, motivation, effort, and time that works across diagnoses, framed for the more dimensional DSM now being planned.
 
 Hosted with GitHub Pages from the `main` branch. No build step: `index.html` plus `assets/`.
 
