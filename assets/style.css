@@ -524,3 +524,101 @@ h3, h4 { font-weight: 650; font-stretch: 106%; letter-spacing: -.005em; }
 a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visible, .ck-btn:focus-visible { outline: 2px solid var(--sun); outline-offset: 2px; }
 ::selection { background: color-mix(in srgb, var(--accent) 30%, transparent); }
 .ck-must, .bin.now { background: var(--accent-soft); border-left: 2px solid var(--accent); }
+
+/* ===== Ruled layout: no cards. Items sit under hard rules, like a datasheet ===== */
+.grid { column-gap: 44px; row-gap: 40px; counter-reset: item; }
+.card, .mech, .metric, .tip, .principles > div, .roadmap li {
+  background: none; border: 0; border-top: 1px solid var(--ink); border-radius: 0; box-shadow: none; padding: 18px 0 0;
+}
+.mech, .metric { border-top-width: 1px; }
+.metric { border-top-color: var(--ink-soft); }
+.grid > .card, .grid > .metric, .grid > .tip, .principles > div { counter-increment: item; }
+.grid > .card:not(.stream)::before, .grid > .metric::before, .grid > .tip::before, .principles > div::before {
+  content: counter(item, decimal-leading-zero); display: block; margin-bottom: 10px;
+  font: 500 .72rem/1 var(--mono); letter-spacing: .14em; color: var(--accent);
+}
+.card p, .mech p, .metric p, .tip p, .principles p { font-size: .96rem; }
+
+/* Research streams: big mono numerals in the margin, core stream marked by a heavy rule */
+.stream { padding: 18px 0 0 64px !important; }
+.num { left: 0; top: 16px; width: auto; height: auto; background: none !important; color: var(--accent) !important; font: 500 2rem/1 var(--mono) !important; letter-spacing: -.04em; border-radius: 0; }
+.stream.core { border: 0; border-top: 3px solid var(--accent); box-shadow: none; }
+
+/* Home: key points as a numbered strip */
+.tldr { counter-reset: tl; gap: 0 40px; }
+.tldr li { counter-increment: tl; background: none; border: 0; border-top: 1px solid var(--ink-soft); border-radius: 0; padding: 16px 0 0; }
+.tldr li::before { content: counter(tl, decimal-leading-zero); display: block; margin-bottom: 10px; font: 500 1.6rem/1 var(--mono); color: var(--accent); letter-spacing: -.03em; }
+
+/* Home: "start here" and "explore" become a full-width index list */
+.grid:has(> .path) { grid-template-columns: 1fr; gap: 0; border-bottom: 1px solid var(--line); }
+.path {
+  display: grid; grid-template-columns: minmax(0, 15rem) minmax(0, 1fr) auto; align-items: baseline; column-gap: 32px;
+  padding: 22px 8px; background: none; border: 0; border-top: 1px solid var(--line); border-radius: 0; box-shadow: none;
+  transition: background-color .15s ease, padding .15s ease;
+}
+.path-k { font-family: var(--serif); font-stretch: 112%; font-weight: 700; font-size: 1.35rem; letter-spacing: -.01em; }
+.path-d { font-size: .96rem; }
+.path-go { margin: 0; padding: 0; font: 500 .74rem/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; }
+.path-go { font-size: 0; }
+.path-go::after { content: "\2192"; font: 400 1.5rem/1 var(--sans); color: var(--accent); }
+@media (hover: hover) {
+  .path:hover { background: var(--bg-alt); padding-left: 16px; padding-right: 16px; border-color: var(--line); }
+  .path:hover .path-go { text-decoration: none; }
+}
+@media (max-width: 700px) {
+  .path { grid-template-columns: minmax(0, 1fr) auto; row-gap: 6px; padding: 18px 0; }
+  .path-k { font-size: 1.2rem; }
+  .path-d { grid-column: 1 / -1; grid-row: 2; }
+  .path-go { grid-column: 2; grid-row: 1; }
+}
+
+/* Roadmap: phases on one connected line */
+.roadmap { gap: 0 32px; position: relative; }
+.roadmap li { position: relative; border-top: 2px solid var(--ink); padding-top: 26px; }
+.roadmap li::before { content: ""; position: absolute; top: -7px; left: 0; width: 12px; height: 12px; background: var(--accent); }
+.roadmap li + li::after { content: ""; position: absolute; top: -2px; left: -32px; width: 32px; height: 2px; background: var(--ink); }
+@media (max-width: 800px) {
+  .roadmap { gap: 0; }
+  .roadmap li { border-top: 0; border-left: 2px solid var(--ink); padding: 0 0 28px 24px; }
+  .roadmap li::before { top: 0; left: -7px; }
+  .roadmap li + li::after { display: none; }
+}
+
+/* Feature blocks: open spec block between heavy rules */
+.feature-study { background: none; border: 0; border-top: 3px solid var(--ink); border-bottom: 1px solid var(--line); border-radius: 0; box-shadow: none; padding: 26px 0 30px; }
+.inshort { background: none; border: 0; border-left: 2px solid var(--accent); border-radius: 0; padding: 2px 0 2px 16px; }
+.also { background: none; border-left: 2px solid var(--accent); border-radius: 0; padding: 4px 0 4px 16px; }
+.ck-must, .bin.now { border-radius: 0; }
+
+/* Charts: framed by rules, not boxes */
+.dv { background: none; border: 0; border-top: 2px solid var(--ink); border-bottom: 1px solid var(--line); border-radius: 0; padding: 18px 0 20px; }
+.dv-tiles { gap: 0; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--line); }
+.dv-tile { background: none; border: 0; border-left: 1px solid var(--line); border-radius: 0; padding: 18px 20px; }
+.dv-tile:first-child { border-left: 0; padding-left: 0; }
+.dv-num { font-family: var(--mono); font-size: 2.1rem; }
+.rv-flow { gap: 0; }
+.rv-flow li { background: none; border: 0; border-left: 1px solid var(--line); border-radius: 0; padding: 4px 16px; }
+.rv-flow li:first-child { border-left: 0; padding-left: 0; }
+.engine-fig { background: none; border: 0; border-top: 2px solid var(--ink); border-radius: 0; padding: 16px 0 0; }
+
+/* Stuck picker: ruled steps */
+.ck-step { background: none; border: 0; border-top: 1px solid var(--line); border-radius: 0; padding: 18px 0 0; }
+.ck-n { background: none !important; color: var(--accent) !important; font: 500 1.7rem/1 var(--mono) !important; width: auto; height: auto; }
+.ck-card { background: none; border-radius: 0; }
+
+/* Pager: two big text links */
+.pager a { background: none; border: 0; border-top: 2px solid var(--ink); border-radius: 0; padding: 14px 0 0; font-size: 1.35rem; font-stretch: 112%; }
+@media (hover: hover) { .pager a:hover { border-top-color: var(--accent); } }
+
+/* Tables on phones: ruled rows, not cards */
+@media (max-width: 640px) {
+  .matrix tr { background: none; border: 0; border-top: 2px solid var(--ink); border-radius: 0; box-shadow: none !important; padding: 4px 0 16px; margin: 0; }
+}
+
+/* Interactive panels stay framed, but flat */
+.model, .equation { background: none; border-color: var(--ink); }
+details.more { background: none; border: 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); border-radius: 0; padding: 4px 0; }
+.dv-tiles + *, .grid + .note { margin-top: 24px; }
+.path { padding-left: 0; padding-right: 0; }
+.tldr { row-gap: 22px; }
+.eyebrow { align-items: flex-start; } .eyebrow::before { margin-top: .5em; }
